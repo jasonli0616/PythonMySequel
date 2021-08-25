@@ -23,9 +23,10 @@ class Connection:
 
         self.cursor = self.connection.cursor()
 
-    def _execute(self, query:str):
+    def _execute(self, query:str, commit=True):
         self.cursor.execute(query)
-        self.connection.commit()
+        if commit:
+            self.connection.commit()
     
     def use_database(self, database:str):
         try:
@@ -82,5 +83,51 @@ class Connection:
         
         try:
             self._execute(execute_string)
+        except mysql.connector.Error as e:
+            print(e)
+    
+    def select(self,
+        columns,
+        table:Table,
+        params:str=None
+    ):
+        execute_string = 'SELECT '
+
+        if columns == '*':
+            execute_string += '*'
+        elif type(columns) == list:
+            for column in columns:
+                execute_string += f'{column}, '
+            execute_string = execute_string.removesuffix(', ')
+        else:
+            raise TypeError(f'Incorrect type {type(columns)} for columns')
+
+        execute_string += f' FROM {table.table_name}'
+
+        if params:
+            execute_string += f' WHERE {params}'
+
+        try:
+            self._execute(execute_string, commit=False)
+            data = self.cursor.fetchall()
+
+            rows = []
+
+            if columns == '*':
+
+                for row in data:
+                    r = Row(table)
+                    for value, index in zip(table.values, range(0, len(table.values))):
+                        r._add_value({value: row[index]})
+                    rows.append(r)
+
+            else:
+                for row in data:
+                    r = Row(table)
+                    for column, index in zip(row, columns):
+                        r._add_value({index: column})
+                    rows.append(r)
+
+            return rows
         except mysql.connector.Error as e:
             print(e)
