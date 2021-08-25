@@ -22,3 +22,6 @@ class Row:
     def _add_value(self, value:dict):
         for k, v in value.items():
             self.values[k] = v
+    
+    def __str__(self) -> str:
+        return str(self.values)

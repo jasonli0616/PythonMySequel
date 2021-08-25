@@ -24,7 +24,7 @@ PythonMySequel is based off of the [MySQL Python connector](https://dev.mysql.co
   - Eg. PostgreSQL, SQLite
 
 ## Documentation
-PythonMySequel is currently in the early stages of development. Documentation will be available closer to the official release (time TBD).
+Documentation is available [here](https://jasonli0616.github.io/PythonMySequel). PythonMySequel is currently in the early stages of development, and things are subject to change.
 
 ## License
 PythonMySequel is released under the [MIT License](https://github.com/jasonli0616/PythonMySequel/blob/main/LICENSE).

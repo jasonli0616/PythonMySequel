@@ -40,11 +40,6 @@ class Connection:
         except mysql.connector.Error as e:
             print(e)
 
-    def _check_value_type(self, values:dict):
-        for value_name, value_type in values.items():
-            if type(value_type) != _ValueType:
-                raise TypeError(f'Unsupported value type {value_type} for {value_name}')
-
     def create_table(self,
         table:Table
     ):
@@ -89,7 +84,7 @@ class Connection:
     def select(self,
         columns,
         table:Table,
-        params:str=None
+        where:str=None
     ):
         execute_string = 'SELECT '
 
@@ -104,8 +99,8 @@ class Connection:
 
         execute_string += f' FROM {table.table_name}'
 
-        if params:
-            execute_string += f' WHERE {params}'
+        if where:
+            execute_string += f' WHERE {where}'
 
         try:
             self._execute(execute_string, commit=False)
