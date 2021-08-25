@@ -2,7 +2,13 @@
 Custom value type classes for creating tables
 '''
 
-class String():
+class ValueType:
+    SQL_TYPE = ''
+
+    def get_SQL_value(self):
+        return f'{self.SQL_TYPE} {self.options}'.strip()
+
+class String(ValueType):
     def __init__(self, character_limit:int = 255, **options) -> None:
         self.SQL_TYPE = f'VARCHAR({character_limit})'
         self.character_limit_validation(character_limit)
@@ -18,11 +24,8 @@ class String():
         if 'NOT_NULL' in options and options['NOT_NULL']:
             options_string += 'NOT NULL '
         return options_string.strip().strip()
-    
-    def get_SQL_value(self):
-        return f'{self.SQL_TYPE} {self.options}'.strip()
 
-class Int:
+class Int(ValueType):
     def __init__(self, **options) -> None:
         self.SQL_TYPE = 'INT'
         self.options = self.get_options(options)
@@ -37,10 +40,7 @@ class Int:
             options_string += 'PRIMARY KEY '
         return options_string.strip()
 
-    def get_SQL_value(self):
-        return f'{self.SQL_TYPE} {self.options}'.strip()
-
-class Bool:
+class Bool(ValueType):
     def __init__(self, **options) -> None:
         self.SQL_TYPE = 'BOOLEAN'
         self.options = self.get_options(options)
@@ -50,12 +50,3 @@ class Bool:
         if 'NOT_NULL' in options and options['NOT_NULL']:
             options_string += 'NOT NULL '
         return options_string.strip()
-
-    def get_SQL_value(self):
-        return f'{self.SQL_TYPE} {self.options}'.strip()
-
-APPROVED_TYPES = [
-    String,
-    Int,
-    Bool
-]

@@ -6,6 +6,8 @@ as well as interacting with the database
 
 import mysql.connector
 from .values import *
+from .Row import Row
+from .Table import Table
 
 class Connection:
     def __init__(self,
@@ -18,7 +20,8 @@ class Connection:
             user=user,
             password=password,
             host=host,
-            database=database)
+            database=database
+        )
         self.cursor = self.connection.cursor()
     
     def _execute(self, query:str):
@@ -27,28 +30,28 @@ class Connection:
 
     def _check_value_type(self, values:dict):
         for value_name, value_type in values.items():
-            if value_type not in APPROVED_TYPES and type(value_type) not in APPROVED_TYPES:
+            if type(value_type) != ValueType:
                 raise TypeError(f'Unsupported value type {value_type} for {value_name}')
     
     def create_table(self,
-        table_name:str,
-        **values
+        table:Table
     ):
-        self._check_value_type(values)
-
-        values_string = ''
-        for value_name, value_type in values.items():
-            values_string += f'{value_name} {value_type.get_SQL_value()}, '
-
-        execute_string = f'CREATE TABLE {table_name} ({values_string})'.replace(', )', ')')
-        
-        self._execute(execute_string)
-    
-    def drop_table(self,
-        table_name:str
-    ):
-        execute_string = f'DROP TABLE {table_name}'
+        execute_string = table._get_create_string()
         try:
             self._execute(execute_string)
-        except mysql.connector.errors.ProgrammingError as e:
+        except mysql.connector.Error as e:
             print(e)
+    
+    def drop_table(self,
+        table
+    ):
+        if type(table) == Table:
+            execute_string = f'DROP TABLE {table.table_name}'
+        else:
+            execute_string = f'DROP TABLE {table}'
+        try:
+            self._execute(execute_string)
+        except mysql.connector.Error as e:
+            print(e)
+    
+    def insert(self,
