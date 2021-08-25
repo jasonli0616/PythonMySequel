@@ -14,19 +14,30 @@ class Connection:
         user:str,
         password:str,
         host:str = '127.0.0.1',
-        database:str = None
     ):
         self.connection = mysql.connector.connect(
             user=user,
             password=password,
             host=host,
-            database=database
         )
+
         self.cursor = self.connection.cursor()
 
     def _execute(self, query:str):
         self.cursor.execute(query)
         self.connection.commit()
+    
+    def use_database(self, database:str):
+        try:
+            self._execute(f'USE {database}')
+        except mysql.connector.Error as e:
+            print(e)
+    
+    def create_database(self, database:str):
+        try:
+            self._execute(f'CREATE DATABASE {database}')
+        except mysql.connector.Error as e:
+            print(e)
 
     def _check_value_type(self, values:dict):
         for value_name, value_type in values.items():
