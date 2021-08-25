@@ -1,10 +1,10 @@
-from pythonmysequel.values import ValueType
+from pythonmysequel.values import _ValueType
 
 
 class Table:
     def __init__(self,
         table_name:str,
-        **values:ValueType
+        **values:_ValueType
     ):
         self.table_name = table_name
         self.values = values
@@ -15,6 +15,6 @@ class Table:
         '''
         values_string = ''
         for value_name, value_type in self.values.items():
-            values_string += f'{value_name} {value_type.get_SQL_value()}, '
+            values_string += f'`{value_name}` {value_type.get_SQL_value()}, '
 
-        return f'CREATE TABLE {self.table_name} ({values_string})'.replace(', )', ')')
+        return f'CREATE TABLE `{self.table_name}` ({values_string})'.replace(', )', ')')

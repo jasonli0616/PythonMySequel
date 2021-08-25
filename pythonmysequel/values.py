@@ -2,17 +2,18 @@
 Custom value type classes for creating tables
 '''
 
-class ValueType:
-    SQL_TYPE = ''
-
+class _ValueType:
     def get_SQL_value(self):
         return f'{self.SQL_TYPE} {self.options}'.strip()
 
-class String(ValueType):
+class String(_ValueType):
     def __init__(self, character_limit:int = 255, **options) -> None:
         self.SQL_TYPE = f'VARCHAR({character_limit})'
+        self.PYTHON_TYPE = str
+        
         self.character_limit_validation(character_limit)
         self.character_limit = character_limit
+
         self.options = self.get_options(options)
 
     def character_limit_validation(self, character_limit:int):
@@ -25,9 +26,11 @@ class String(ValueType):
             options_string += 'NOT NULL '
         return options_string.strip().strip()
 
-class Int(ValueType):
+class Int(_ValueType):
     def __init__(self, **options) -> None:
         self.SQL_TYPE = 'INT'
+        self.PYTHON_TYPE = int
+
         self.options = self.get_options(options)
 
     def get_options(self, options:tuple):
@@ -40,9 +43,24 @@ class Int(ValueType):
             options_string += 'PRIMARY KEY '
         return options_string.strip()
 
-class Bool(ValueType):
+class Float(_ValueType):
+    def __init__(self, **options) -> None:
+        self.SQL_TYPE = 'FLOAT'
+        self.PYTHON_TYPE = float
+
+        self.options = self.get_options(options)
+
+    def get_options(self, options:tuple):
+        options_string = ''
+        if 'NOT_NULL' in options and options['NOT_NULL']:
+            options_string += 'NOT NULL '
+        return options_string.strip()
+
+class Bool(_ValueType):
     def __init__(self, **options) -> None:
         self.SQL_TYPE = 'BOOLEAN'
+        self.PYTHON_TYPE = self.PYTHON_TYPE = bool
+
         self.options = self.get_options(options)
 
     def get_options(self, options:tuple):

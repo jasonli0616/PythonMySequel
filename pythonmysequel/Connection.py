@@ -23,16 +23,16 @@ class Connection:
             database=database
         )
         self.cursor = self.connection.cursor()
-    
+
     def _execute(self, query:str):
         self.cursor.execute(query)
         self.connection.commit()
 
     def _check_value_type(self, values:dict):
         for value_name, value_type in values.items():
-            if type(value_type) != ValueType:
+            if type(value_type) != _ValueType:
                 raise TypeError(f'Unsupported value type {value_type} for {value_name}')
-    
+
     def create_table(self,
         table:Table
     ):
@@ -46,12 +46,30 @@ class Connection:
         table
     ):
         if type(table) == Table:
-            execute_string = f'DROP TABLE {table.table_name}'
+            execute_string = f'DROP TABLE `{table.table_name}`'
         else:
-            execute_string = f'DROP TABLE {table}'
+            execute_string = f'DROP TABLE `{table}`'
         try:
             self._execute(execute_string)
         except mysql.connector.Error as e:
             print(e)
     
     def insert(self,
+        row:Row
+    ):
+        table = row.table
+
+        execute_string = f'INSERT INTO `{table.table_name}` ('
+        for column_name in row.values.keys():
+            execute_string += f'`{column_name}`, '
+        execute_string = execute_string.removesuffix(', ')
+        execute_string += ') VALUES ('
+        for value in row.values.values():
+            execute_string += f"'{value}', "
+        execute_string = execute_string.removesuffix(', ')
+        execute_string += ')'
+        
+        try:
+            self._execute(execute_string)
+        except mysql.connector.Error as e:
+            print(e)
