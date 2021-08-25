@@ -2,7 +2,7 @@
 
 An easier to use MySQL connector for Python.
 
-![Python 3.x](https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python)
+![Python 3.x](https://img.shields.io/badge/python-3.6%20|%203.7%20|%203.8%20|%203.9-blue?style=for-the-badge&logo=python)
 ![Repo status: in development](https://img.shields.io/badge/repo%20status-WIP-red?style=for-the-badge&)
 
 ## Introduction
