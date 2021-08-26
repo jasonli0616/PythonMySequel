@@ -8,6 +8,8 @@ class Table:
     ):
         self.table_name = table_name
         self.values = values
+        self.primary_key = None
+        self._has_primary_key()
     
     def _get_create_string(self):
         '''
@@ -23,7 +25,8 @@ class Table:
         '''
         This method checks whether or not there is a primary key column
         '''
-        for value in self.values:
+        for key, value in self.values.items():
             if 'PRIMARY KEY' in value.options:
+                self.primary_key = key
                 return True
         return False
