@@ -5,7 +5,7 @@ Without going into too much detail, SQL injection is when a user inputs SQL code
 
 ##### Example:
 Here is a hypothetical piece of code that could run when a user is asked for their name.\
-`{input_first_name}` and `{input_last_name}` are set to exactly what the user inputs.\
+`{input_first_name}` and `{input_last_name}` are set to exactly what the user inputs.
 ```sql
 INSERT INTO `users` (`first_name`, `last_name`)
 VALUES ('{input_first_name}', '{input_last_name}');
@@ -35,7 +35,7 @@ Querying a database with the user inputted username and password:
 SELECT * FROM `accounts`
 WHERE username='{input_username}' AND password='{input_password}';
 ```
-Using `OR 1=1`, the attacker is able to gain access to an account without the password./
+Using `OR 1=1`, the attacker is able to gain access to an account without the password.\
 This works because even if the password is incorrect, `1=1` is always true.
 
 `{input_username}` = bob_jones\

@@ -12,7 +12,7 @@ Current table:
 
 ```python
 # Get a row
-bob = db.query('*', users_table, where="first_name='Bob'")[0]
+bob = db.select('*', users_table, where="first_name='Bob'")[0]
 ```
 Returns:
 
