@@ -1,6 +1,6 @@
 # Updating Records
 
-To update a record, you must first [`select`](getting_started/examples/query.md) a row. Then, you pass in that row as an argument to the [`Collection.update`](api_reference/connection.md) method.
+To update a record, you must first [`select`](getting_started/examples/query.md) a row. Then, you pass in that row as an argument to the [`Connection.update`](api_reference/connection.md#methods-and-attributes) method.
 
 Current table:
 

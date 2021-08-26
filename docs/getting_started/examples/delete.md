@@ -1,6 +1,6 @@
 # Deleting Records
 
-To delete a record, you must first [`select`](getting_started/examples/query.md) a row. Then, you pass in that row as an argument to the [`Collection.delete`](api_reference/connection.md) method.
+To delete a record, you must first [`select`](getting_started/examples/query.md) a row. Then, you pass in that row as an argument to the [`Connection.delete`](api_reference/connection.md#methods-and-attributes) method.
 
 Current table:
 
