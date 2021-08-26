@@ -5,9 +5,9 @@ class Float(_ValueType):
         self.SQL_TYPE = 'FLOAT'
         self.PYTHON_TYPE = float
 
-        self.options = self.get_options(options)
+        self.options = self._get_options(options)
 
-    def get_options(self, options:tuple):
+    def _get_options(self, options:tuple):
         options_string = ''
         if 'NOT_NULL' in options and options['NOT_NULL']:
             options_string += 'NOT NULL '
