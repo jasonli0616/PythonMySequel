@@ -97,12 +97,12 @@ class Connection:
             execute_string += '*'
         elif type(columns) == list:
             for column in columns:
-                execute_string += f'{column}, '
+                execute_string += f'`{column}`, '
             execute_string = execute_string.removesuffix(', ')
         else:
             raise TypeError(f'Incorrect type {type(columns)} for columns')
 
-        execute_string += f' FROM {table.table_name}'
+        execute_string += f' FROM `{table.table_name}`'
 
         if where:
             execute_string += f' WHERE {where}'
@@ -114,20 +114,61 @@ class Connection:
             rows = []
 
             if columns == '*':
+                columns = [i for i in table.values.keys()]
 
-                for row in data:
-                    r = Row(table)
-                    for value, index in zip(table.values, range(0, len(table.values))):
-                        r._add_value({value: row[index]})
-                    rows.append(r)
-
-            else:
-                for row in data:
-                    r = Row(table)
-                    for column, index in zip(row, columns):
-                        r._add_value({index: column})
-                    rows.append(r)
+            for row in data:
+                r = Row(table)
+                for column, index in zip(row, columns):
+                    r._add_value({index: column})
+                rows.append(r)
 
             return rows
+        except mysql.connector.Error as e:
+            warnings.warn(e)
+    
+    def update(self,
+        row:Row,
+        **set
+    ):
+        table = row.table
+        execute_string = f'UPDATE `{table.table_name}` SET '
+
+        for column, value in set.items():
+            execute_string += f'{column} = {value}, '
+        execute_string = execute_string.removesuffix(', ')
+
+        execute_string += ' WHERE '
+
+        if table._has_primary_key():
+            execute_string += f'`{table.primary_key}`={row.values[table.primary_key]}'
+
+        else:
+            warnings.warn(f'Table {table.table_name} has no primary key')
+            for column, v in row.values.items():
+                execute_string += f"`{column}` = '{v}' AND "
+            execute_string = execute_string.removesuffix(' AND ')
+
+        try:
+            self._execute(execute_string)
+        except mysql.connector.Error as e:
+            warnings.warn(e)
+    
+    def delete(self,
+        row:Row
+    ):
+        table = row.table
+        execute_string = f'DELETE FROM `{table.table_name}` WHERE '
+
+        if table._has_primary_key():
+            execute_string += f'`{table.primary_key}`={row.values[table.primary_key]}'
+
+        else:
+            warnings.warn(f'Table {table.table_name} has no primary key')
+            for column, v in row.values.items():
+                execute_string += f"`{column}` = '{v}' AND "
+            execute_string = execute_string.removesuffix(' AND ')
+
+        try:
+            self._execute(execute_string)
         except mysql.connector.Error as e:
             warnings.warn(e)

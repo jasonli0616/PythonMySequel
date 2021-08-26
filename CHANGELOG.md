@@ -5,9 +5,7 @@ All notable changes will be documented in this file.
 ### Added
 - Connection class for interacting with MySQL DB
 - Ability to create, and use databases
-- Ability to create and drop tables
+- Ability to create, and drop tables
 - Ability to insert into table
 - Ability to query table
-### Todo:
-- [ ] Add ability to Row class:
-  - [ ] Interacting with rows (update, delete)
+- Ability to update, and delete records
