@@ -8,7 +8,7 @@ As an example, instead of writing:
 ```sql
 SELECT * FROM `table`;
 ```
-you would write
+you would write:
 ```python
 db.select('*', table)
 ```

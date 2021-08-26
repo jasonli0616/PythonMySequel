@@ -18,5 +18,5 @@
     * [Int Object](api_reference/values/int.md)
     * [Float Object](api_reference/values/float.md)
     * [Bool Object](api_reference/values/bool.md)
-* [Contributing](contributing.md)
-  * [Issue tracking](contributing.md#issue-tracking)
+* [Contributing](CONTRIBUTING.md)
+  * [Issue tracking](CONTRIBUTING.md#issue-tracking)

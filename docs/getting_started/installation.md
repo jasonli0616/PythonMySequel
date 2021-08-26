@@ -4,14 +4,15 @@ PythonMySequel is available for Python 3.6 and above.
 
 You can install PythonMySequel using [`pip`](https://pip.pypa.io/en/stable/installation/).
 ```
-$ python3 -m pip install pythonmysequel
+$ python3 -m pip install PythonMySequel
 ```
 ```
-$ py -m pip install pythonmysequel
+$ py -m pip install PythonMySequel
 ```
 ```
-$ pip install pythonmysequel
+$ pip install PythonMySequel
 ```
+[PythonMySequel on PyPI](https://pypi.org/project/PythonMySequel/)
 
 ## Requirements:
 - [MySQL](https://dev.mysql.com/downloads/mysql/) - This is the MySQL server.

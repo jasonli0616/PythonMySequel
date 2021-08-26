@@ -1,7 +1,7 @@
 # Changelog
 All notable changes will be documented in this file.
 
-## 0.1.0 - In development
+## v0.1.0 - 26/08/2021
 ### Added
 - Connection class for interacting with MySQL DB
 - Ability to create, and use databases

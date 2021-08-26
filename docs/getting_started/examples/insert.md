@@ -1,6 +1,6 @@
 # Inserting Records
 
-To insert a record into a table using PythonMySequel, you must create an instance of the [`Row`](api_reference/row.md) class.
+To insert a record into a table using PythonMySequel, you must create an instance of the [`Row`](api_reference/row.md) class, then call the [`Collection.insert`](api_reference/collection.md) method.
 ```python
 # insert method
 db.insert(

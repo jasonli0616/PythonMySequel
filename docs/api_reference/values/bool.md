@@ -20,5 +20,5 @@ Returns the Python equivalent data type ([bool](https://docs.python.org/3/librar
 `SQL_TYPE -> str`\
 Returns the SQL equivalent data type ([TINYINT](https://dev.mysql.com/doc/refman/8.0/en/integer-types.html))
 
-`_get_options(database:str) -> str`\
+`_get_options(database:str) -> str` (private method)\
 Parses data type options
