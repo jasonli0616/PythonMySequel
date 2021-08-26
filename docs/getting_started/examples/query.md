@@ -1,6 +1,6 @@
 # Querying/Selecting Records
 
-The [`Collection.select`](api_reference/connection.md) method will return **a list** of the [`Row`](api_reference/row.md) object.
+The [`Collection.select`](api_reference/connection.md#methods-and-attributes) method will return **a list** of the [`Row`](api_reference/row.md) object.
 ```python
 all_users = db.select('*', users_table)
 query2 = db.select(['last_name', 'age'], users_table)
