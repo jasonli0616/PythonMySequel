@@ -5,6 +5,7 @@ as well as interacting with the database
 '''
 
 import mysql.connector
+import warnings
 from .values import *
 from .Row import Row
 from .Table import Table
@@ -32,22 +33,26 @@ class Connection:
         try:
             self._execute(f'USE {database}')
         except mysql.connector.Error as e:
-            print(e)
+            warnings.warn(e)
     
     def create_database(self, database:str):
         try:
             self._execute(f'CREATE DATABASE {database}')
         except mysql.connector.Error as e:
-            print(e)
+            warnings.warn(e)
 
     def create_table(self,
         table:Table
     ):
         execute_string = table._get_create_string()
+
+        if not table._has_primary_key:
+            warnings.warn(f'Table {table.table_name} has no primary key')
+
         try:
             self._execute(execute_string)
         except mysql.connector.Error as e:
-            print(e)
+            warnings.warn(e)
     
     def drop_table(self,
         table
@@ -59,7 +64,7 @@ class Connection:
         try:
             self._execute(execute_string)
         except mysql.connector.Error as e:
-            print(e)
+            warnings.warn(e)
     
     def insert(self,
         row:Row
@@ -79,7 +84,7 @@ class Connection:
         try:
             self._execute(execute_string)
         except mysql.connector.Error as e:
-            print(e)
+            warnings.warn(e)
     
     def select(self,
         columns,
@@ -125,4 +130,4 @@ class Connection:
 
             return rows
         except mysql.connector.Error as e:
-            print(e)
+            warnings.warn(e)

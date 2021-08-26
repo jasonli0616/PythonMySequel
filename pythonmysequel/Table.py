@@ -18,3 +18,12 @@ class Table:
             values_string += f'`{value_name}` {value_type.get_SQL_value()}, '
 
         return f'CREATE TABLE `{self.table_name}` ({values_string})'.replace(', )', ')')
+
+    def _has_primary_key(self):
+        '''
+        This method checks whether or not there is a primary key column
+        '''
+        for value in self.values:
+            if 'PRIMARY KEY' in value.options:
+                return True
+        return False
