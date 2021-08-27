@@ -1,10 +1,16 @@
+'''
+This is the object that represents:
+- SQL INT
+- Python int
+'''
+
 from ._ValueType import _ValueType
 
 class Int(_ValueType):
-    def __init__(self, **options) -> None:
-        self.SQL_TYPE = 'INT'
-        self.PYTHON_TYPE = int
+    SQL_TYPE = 'INT'
+    PYTHON_TYPE = int
 
+    def __init__(self, **options) -> None:
         self.options = self._get_options(options)
 
     def _get_options(self, options:tuple):

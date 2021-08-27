@@ -15,6 +15,7 @@ All notable changes will be documented in this file.
 - Create table method (removed [`pythonmysequel.Table._get_create_string()` method](https://jasonli0616.github.io/PythonMySequel/#/api_reference/table?id=methods-and-attributes), modify [`pythonmysequel.Connection.create_table()` method](https://jasonli0616.github.io/PythonMySequel/#/api_reference/connection?id=methods-and-attributes))
 - Enabled [MySQLConnection.autocommit](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlconnection-autocommit.html)
 - Changed [selecting](https://jasonli0616.github.io/PythonMySequel/#/getting_started/examples/query) conditions (`WHERE`)
+- Conform to [PEP 8](https://www.python.org/dev/peps/pep-0008/) (better than before)
 
 ### Removed
 - [`pythonmysequel.Connection._execute()`](https://jasonli0616.github.io/PythonMySequel/#/api_reference/connection?id=methods-and-attributes) method

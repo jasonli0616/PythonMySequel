@@ -12,10 +12,9 @@ from .Table import Table
 
 class Connection:
     def __init__(self,
-        user:str,
-        password:str,
-        host:str = '127.0.0.1',
-    ):
+                user:str,
+                password:str,
+                host:str = '127.0.0.1') -> None:
         self.connection = mysql.connector.connect(
             user=user,
             password=password,
@@ -25,23 +24,21 @@ class Connection:
         self.cursor = self.connection.cursor()
         self.last_query = ''
     
-    def use_database(self, database:str):
+    def use_database(self, database:str) -> None:
         try:
             self.cursor.execute(f'USE {database}')
             self.last_query = (f'USE {database}')
         except mysql.connector.Error as e:
             warnings.warn(e)
     
-    def create_database(self, database:str):
+    def create_database(self, database:str) -> None:
         try:
             self.cursor.execute(f'CREATE DATABASE `{database}`')
             self.last_query = (f'CREATE DATABASE `{database}`')
         except mysql.connector.Error as e:
             warnings.warn(e)
 
-    def create_table(self,
-        table:Table
-    ):
+    def create_table(self, table:Table) -> None:
         values = ''
         for value_name, value_type in table.values.items():
             values += f'`{value_name}` {value_type.get_SQL_value()}, '.replace(', )', ')')
@@ -56,9 +53,7 @@ class Connection:
         except mysql.connector.Error as e:
             warnings.warn(e)
     
-    def drop_table(self,
-        table
-    ):
+    def drop_table(self, table) -> None:
         if type(table) == Table:
             execute_string = f'DROP TABLE `{table.table_name}`'
         elif type(table) == str:
@@ -72,9 +67,7 @@ class Connection:
         except mysql.connector.Error as e:
             warnings.warn(e)
     
-    def insert(self,
-        row:Row
-    ):
+    def insert(self, row:Row) -> None:
         table = row.table
 
         percent_s = '%s'
@@ -89,10 +82,9 @@ class Connection:
             warnings.warn(e)
     
     def select(self,
-        columns,
-        table:Table,
-        **where
-    ):
+                columns, table:Table,
+                **where) -> list[Row]:
+        '''Selects record(s) from table and returns as list of '''
         if columns != '*' and type(columns) != list:
             raise TypeError(f'Incorrect type {type(columns)} for columns')
 
@@ -125,10 +117,8 @@ class Connection:
         except mysql.connector.Error as e:
             warnings.warn(e)
     
-    def update(self,
-        row:Row,
-        **set
-    ):
+    def update(self, 
+                row:Row, **set) -> None:
         table = row.table
 
         execute_string = f'UPDATE {table.table_name} SET'
@@ -155,9 +145,7 @@ class Connection:
         except mysql.connector.Error as e:
             warnings.warn(e)
     
-    def delete(self,
-        row:Row
-    ):
+    def delete(self, row:Row) -> None:
         table = row.table
 
         execute_string = f'DELETE FROM `{table.table_name}`'
