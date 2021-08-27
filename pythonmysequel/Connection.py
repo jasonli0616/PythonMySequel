@@ -24,17 +24,23 @@ class Connection:
         self.cursor = self.connection.cursor()
         self.last_query = ''
     
+    def _execute(self, execute_string:str, execute_data:list=None):
+        if execute_data:
+            self.cursor.execute(execute_string, execute_data)
+            self.last_query = (execute_string % tuple(execute_data))
+        else:
+            self.cursor.execute(execute_string)
+            self.last_query = execute_string
+    
     def use_database(self, database:str) -> None:
         try:
-            self.cursor.execute(f'USE {database}')
-            self.last_query = (f'USE {database}')
+            self._execute(f'USE {database}')
         except mysql.connector.Error as e:
             warnings.warn(e)
     
     def create_database(self, database:str) -> None:
         try:
-            self.cursor.execute(f'CREATE DATABASE `{database}`')
-            self.last_query = (f'CREATE DATABASE `{database}`')
+            self._execute(f'CREATE DATABASE `{database}`')
         except mysql.connector.Error as e:
             warnings.warn(e)
 
@@ -76,8 +82,7 @@ class Connection:
         execute_data = list(i for i in row.values.values())
         
         try:
-            self.cursor.execute(execute_string, execute_data)
-            self.last_query = (execute_string % tuple(execute_data))
+            self._execute(execute_string, execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
     
@@ -98,8 +103,7 @@ class Connection:
                 execute_data.append(value)
 
         try:
-            self.cursor.execute(execute_string, execute_data)
-            self.last_query = (execute_string % tuple(execute_data))
+            self._execute(execute_string, execute_data)
             data = self.cursor.fetchall()
 
             rows = []
@@ -140,8 +144,7 @@ class Connection:
                 execute_data.append(v)
 
         try:
-            self.cursor.execute(execute_string, execute_data)
-            self.last_query = (execute_string % tuple(execute_data))
+            self._execute(execute_string, execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
     
@@ -164,7 +167,6 @@ class Connection:
                 execute_data.append(v)
 
         try:
-            self.cursor.execute(execute_string, execute_data)
-            self.last_query = (execute_string % tuple(execute_data))
+            self._execute(execute_string, execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)

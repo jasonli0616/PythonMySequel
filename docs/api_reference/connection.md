@@ -44,3 +44,6 @@ Update record(s) in a table
 
 `use_database(database:str) -> None`\
 Use an existing database
+
+`_execute(execute_string:str, execute_data:tuple=None) -> None` (private method)\
+Executes a query
