@@ -34,8 +34,8 @@ class Connection:
     
     def create_database(self, database:str):
         try:
-            self.cursor.execute(f'CREATE DATABASE {database}')
-            self.last_query = (f'CREATE DATABASE {database}')
+            self.cursor.execute(f'CREATE DATABASE `{database}`')
+            self.last_query = (f'CREATE DATABASE `{database}`')
         except mysql.connector.Error as e:
             warnings.warn(e)
 
@@ -47,8 +47,8 @@ class Connection:
             values += f'`{value_name}` {value_type.get_SQL_value()}, '.replace(', )', ')')
         execute_string = f'CREATE TABLE `{table.table_name}` ({values})'
 
-        if not table._has_primary_key:
-            warnings.warn(f'Table {table.table_name} has no primary key')
+        if not table._has_primary_key():
+            warnings.warn(f'Table `{table.table_name}` has no primary key')
 
         try:
             self.cursor.execute(execute_string)
@@ -64,7 +64,7 @@ class Connection:
         elif type(table) == str:
             execute_string = f'DROP TABLE `{table}`'
         else:
-            raise TypeError(f'Incorrect type {type(table)} for table')
+            raise TypeError(f'Incorrect type {type(table)} for table `{table}`')
 
         try:
             self.cursor.execute(exec)
@@ -78,7 +78,7 @@ class Connection:
         table = row.table
 
         percent_s = '%s'
-        execute_string = f'INSERT INTO {table.table_name} ' + f"{str(tuple(list(i for i in row.values.keys())))} ".replace("'", "") + f'VALUES {str(tuple(list(map(lambda i: percent_s, row.values))))}'.replace("'%s'", "%s")
+        execute_string = f'INSERT INTO `{table.table_name}` ' + f"{str(tuple(list(i for i in row.values.keys())))} ".replace("'", "") + f'VALUES {str(tuple(list(map(lambda i: percent_s, row.values))))}'.replace("'%s'", "%s")
 
         execute_data = list(i for i in row.values.values())
         
@@ -99,11 +99,10 @@ class Connection:
         execute_string = f'SELECT {columns} '.replace('[', '').replace(']', '').replace("'", "") + f'FROM {table.table_name}'
         execute_data = []
 
-        percent_s = '%s'
         if where:
-            for key, value, times in zip(where.keys(), where.values(), range(len(where))):
+            for column, value, times in zip(where.keys(), where.values(), range(len(where))):
                 condition_keyword = 'WHERE' if times == 0 else 'AND'
-                execute_string += f' {condition_keyword} {key}=%s'
+                execute_string += f' {condition_keyword} `{column}`=%s'
                 execute_data.append(value)
 
         try:
@@ -113,7 +112,7 @@ class Connection:
 
             rows = []
 
-            if columns == '*':
+            if columns == '*' or columns == ['*']:
                 columns = [i for i in table.values.keys()]
 
             for row in data:
@@ -134,20 +133,20 @@ class Connection:
 
         execute_string = f'UPDATE {table.table_name} SET'
         for column in set.keys():
-            execute_string += f' {column}=%s,'
+            execute_string += f' `{column}`=%s,'
         execute_string = execute_string.removesuffix(',')
         execute_data = list(i for i in set.values())
 
         if table._has_primary_key():
-            execute_string += f' WHERE {table.primary_key}=%s'
+            execute_string += f' WHERE `{table.primary_key}`=%s'
             execute_data.append(row.values[table.primary_key])
 
         else:
-            warnings.warn(f'Table {table.table_name} has no primary key')
+            warnings.warn(f'Table `{table.table_name}` has no primary key')
 
             for column, v, times in zip(row.values.keys(), row.values.items(), range(len(row.values))):
                 condition_keyword = 'WHERE' if times == 0 else 'AND'
-                execute_string += f" {condition_keyword} {column}=%s"
+                execute_string += f" {condition_keyword} `{column}`=%s"
                 execute_data.append(v)
 
         try:
@@ -161,19 +160,19 @@ class Connection:
     ):
         table = row.table
 
-        execute_string = f'DELETE FROM {table.table_name}'
+        execute_string = f'DELETE FROM `{table.table_name}`'
         execute_data = []
 
         if table._has_primary_key():
-            execute_string += f' WHERE {table.primary_key}=%s'
+            execute_string += f' WHERE `{table.primary_key}`=%s'
             execute_data.append(row.values[table.primary_key])
 
         else:
-            warnings.warn(f'Table {table.table_name} has no primary key')
+            warnings.warn(f'Table `{table.table_name}` has no primary key')
 
             for column, v, times in zip(row.values.keys(), row.values.items(), range(len(row.values))):
                 condition_keyword = 'WHERE' if times == 0 else 'AND'
-                execute_string += f" {condition_keyword} {column}=%s"
+                execute_string += f" {condition_keyword} `{column}`=%s"
                 execute_data.append(v)
 
         try:
