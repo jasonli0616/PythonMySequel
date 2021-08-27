@@ -6,6 +6,7 @@ pythonmysequel.Table and pythonmysequel.Connection
 
 from .Table import Table
 from .values import *
+from .values import _ValueType
 
 class Row:
     def __init__(self,

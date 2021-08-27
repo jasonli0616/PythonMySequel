@@ -7,7 +7,7 @@ This is the object that represents:
 from ._ValueType import _ValueType
 
 class Int(_ValueType):
-    SQL_TYPE = 'INT'
+    SQL_TYPE = 'INTEGER'
     PYTHON_TYPE = int
 
     def __init__(self, **options) -> None:
