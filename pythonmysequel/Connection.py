@@ -42,7 +42,10 @@ class Connection:
     def create_table(self,
         table:Table
     ):
-        execute_string = table._get_create_string()
+        values = ''
+        for value_name, value_type in table.values.items():
+            values += f'`{value_name}` {value_type.get_SQL_value()}, '.replace(', )', ')')
+        execute_string = f'CREATE TABLE `{table.table_name}` ({values})'
 
         if not table._has_primary_key:
             warnings.warn(f'Table {table.table_name} has no primary key')
