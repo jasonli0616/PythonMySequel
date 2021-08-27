@@ -8,6 +8,7 @@ All notable changes will be documented in this file.
 - SQL injection protection
 - Ability to see last query run in SQL syntax
 - Backticks (`` ` ``) when table name used to prevent user error
+- Support for SQLite
 
 ### Changed
 - Most [`pythonmysequel.Connection` method](https://jasonli0616.github.io/PythonMySequel/#/api_reference/connection?id=methods-and-attributes) code, to support SQL injection protection
@@ -18,9 +19,7 @@ All notable changes will be documented in this file.
 
 ### Removed
 - [`pythonmysequel.Table._get_create_string()`](https://jasonli0616.github.io/PythonMySequel/#/api_reference/table?id=methods-and-attributes) method
-
-## To-do:
-- Add support for SQLite
+- Column length validation for VARCHAR
 
 ---
 
