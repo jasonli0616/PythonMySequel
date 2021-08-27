@@ -5,6 +5,7 @@ as well as interacting with the database
 '''
 
 import mysql.connector
+import sqlite3
 import warnings
 from .values import *
 from .Row import Row
@@ -24,7 +25,7 @@ class Connection:
         self.cursor = self.connection.cursor()
         self.last_query = ''
     
-    def _execute(self, execute_string:str, execute_data:list=None):
+    def _execute(self, execute_string:str, execute_data:list=[]):
         if execute_data:
             self.cursor.execute(execute_string, execute_data)
             self.last_query = (execute_string % tuple(execute_data))
@@ -37,26 +38,32 @@ class Connection:
             self._execute(f'USE {database}')
         except mysql.connector.Error as e:
             warnings.warn(e)
+        except sqlite3.Error as e:
+            warnings.warn(e)
     
     def create_database(self, database:str) -> None:
         try:
             self._execute(f'CREATE DATABASE `{database}`')
         except mysql.connector.Error as e:
             warnings.warn(e)
+        except sqlite3.Error as e:
+            warnings.warn(e)
 
     def create_table(self, table:Table) -> None:
         values = ''
         for value_name, value_type in table.values.items():
-            values += f'`{value_name}` {value_type.get_SQL_value()}, '.replace(', )', ')')
+            values += f'`{value_name}` {value_type.get_SQL_value()}, '
+        values = values.removesuffix(', ')
         execute_string = f'CREATE TABLE `{table.table_name}` ({values})'
 
         if not table._has_primary_key():
             warnings.warn(f'Table `{table.table_name}` has no primary key')
 
         try:
-            self.cursor.execute(execute_string)
-            self.last_query = (execute_string)
+            self._execute(execute_string)
         except mysql.connector.Error as e:
+            warnings.warn(e)
+        except sqlite3.Error as e:
             warnings.warn(e)
     
     def drop_table(self, table) -> None:
@@ -68,9 +75,10 @@ class Connection:
             raise TypeError(f'Incorrect type {type(table)} for table `{table}`')
 
         try:
-            self.cursor.execute(exec)
-            self.last_query = (execute_string)
+            self._execute(execute_string)
         except mysql.connector.Error as e:
+            warnings.warn(e)
+        except sqlite3.Error as e:
             warnings.warn(e)
     
     def insert(self, row:Row) -> None:
@@ -84,6 +92,8 @@ class Connection:
         try:
             self._execute(execute_string, execute_data)
         except mysql.connector.Error as e:
+            warnings.warn(e)
+        except sqlite3.Error as e:
             warnings.warn(e)
     
     def select(self,
@@ -120,6 +130,8 @@ class Connection:
             return rows
         except mysql.connector.Error as e:
             warnings.warn(e)
+        except sqlite3.Error as e:
+            warnings.warn(e)
     
     def update(self, 
                 row:Row, **set) -> None:
@@ -147,6 +159,8 @@ class Connection:
             self._execute(execute_string, execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
+        except sqlite3.Error as e:
+            warnings.warn(e)
     
     def delete(self, row:Row) -> None:
         table = row.table
@@ -169,4 +183,6 @@ class Connection:
         try:
             self._execute(execute_string, execute_data)
         except mysql.connector.Error as e:
+            warnings.warn(e)
+        except sqlite3.Error as e:
             warnings.warn(e)

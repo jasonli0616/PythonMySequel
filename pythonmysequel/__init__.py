@@ -27,5 +27,6 @@ SOFTWARE.
 '''
 
 from .Connection import Connection
+from .SQLite_Connection import SQLite_Connection
 from .Table import Table
 from .Row import Row
