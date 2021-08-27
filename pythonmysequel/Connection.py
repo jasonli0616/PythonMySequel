@@ -21,23 +21,19 @@ class Connection:
             password=password,
             host=host,
         )
+        self.connection.autocommit = True
 
         self.cursor = self.connection.cursor()
-
-    def _execute(self, query:str, commit=True):
-        self.cursor.execute(query)
-        if commit:
-            self.connection.commit()
     
     def use_database(self, database:str):
         try:
-            self._execute(f'USE {database}')
+            self.cursor.execute('USE %(database)s', {'database':database})
         except mysql.connector.Error as e:
             warnings.warn(e)
     
     def create_database(self, database:str):
         try:
-            self._execute(f'CREATE DATABASE {database}')
+            self.cursor.execute('CREATE DATABASE %(database)s', {'database':database})
         except mysql.connector.Error as e:
             warnings.warn(e)
 
@@ -50,19 +46,22 @@ class Connection:
             warnings.warn(f'Table {table.table_name} has no primary key')
 
         try:
-            self._execute(execute_string)
+            self.cursor.execute(execute_string)
         except mysql.connector.Error as e:
             warnings.warn(e)
     
     def drop_table(self,
         table
     ):
+        execute_data = {}
+
         if type(table) == Table:
-            execute_string = f'DROP TABLE `{table.table_name}`'
+            execute_data['table_name'] = table.table_name
         else:
-            execute_string = f'DROP TABLE `{table}`'
+            execute_data['table_name'] = table
+
         try:
-            self._execute(execute_string)
+            self.cursor.execute('DROP TABLE %(table_name)s', execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
     
@@ -70,19 +69,21 @@ class Connection:
         row:Row
     ):
         table = row.table
+        execute_data = {}
 
-        execute_string = f'INSERT INTO `{table.table_name}` ('
+        execute_data['table_name'] = table.table_name
+        execute_data['columns'] = ''
         for column_name in row.values.keys():
-            execute_string += f'`{column_name}`, '
-        execute_string = execute_string.removesuffix(', ')
-        execute_string += ') VALUES ('
+            execute_data['columns'] += f'{column_name}, '
+        execute_data['columns'] = execute_data['columns'].removesuffix(', ')
+
+        execute_data['values'] = ''
         for value in row.values.values():
-            execute_string += f"'{value}', "
-        execute_string = execute_string.removesuffix(', ')
-        execute_string += ')'
+            execute_data['values'] += f"{value}, "
+        execute_data['values'] = execute_data['values'].removesuffix(', ')
         
         try:
-            self._execute(execute_string)
+            self.cursor.execute('INSERT INTO %(table_name)s (%(columns)s) VALUES (%(values)s)', execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
     
@@ -91,24 +92,28 @@ class Connection:
         table:Table,
         where:str=None
     ):
-        execute_string = 'SELECT '
+        execute_data = {}
 
         if columns == '*':
-            execute_string += '*'
+            execute_data['columns'] = '*'
         elif type(columns) == list:
+            execute_data['columns'] = ''
             for column in columns:
-                execute_string += f'`{column}`, '
-            execute_string = execute_string.removesuffix(', ')
+                execute_data['columns'] += f'{column}, '
+            execute_data['columns'] = execute_data.removesuffix(', ')
         else:
             raise TypeError(f'Incorrect type {type(columns)} for columns')
 
-        execute_string += f' FROM `{table.table_name}`'
+        execute_data['table'] = table.table_name
 
         if where:
-            execute_string += f' WHERE {where}'
+            execute_data['where'] = where
 
         try:
-            self._execute(execute_string, commit=False)
+            if where:
+                self.cursor.execute('SELECT %(columns)s FROM %(table)s WHERE %(where)s', execute_data)
+            else:
+                self.cursor.execute('SELECT %(columns)s FROM %(table)s', execute_data)
             data = self.cursor.fetchall()
 
             rows = []
@@ -131,25 +136,28 @@ class Connection:
         **set
     ):
         table = row.table
-        execute_string = f'UPDATE `{table.table_name}` SET '
+        execute_data = {}
 
+        execute_data['table']
+
+        execute_data['set'] = ''
         for column, value in set.items():
-            execute_string += f'{column} = {value}, '
-        execute_string = execute_string.removesuffix(', ')
-
-        execute_string += ' WHERE '
+            execute_data['set'] += f'{column} = {value}, '
+        execute_data['set'] = execute_data['set'].removesuffix(', ')
 
         if table._has_primary_key():
-            execute_string += f'`{table.primary_key}`={row.values[table.primary_key]}'
+            execute_data['where'] = f'{table.primary_key}={row.values[table.primary_key]}'
 
         else:
             warnings.warn(f'Table {table.table_name} has no primary key')
+
+            execute_data['where'] = ''
             for column, v in row.values.items():
-                execute_string += f"`{column}` = '{v}' AND "
-            execute_string = execute_string.removesuffix(' AND ')
+                execute_data['where'] += f"{column} = '{v}' AND "
+            execute_data['where'] = execute_data['where'].removesuffix(' AND ')
 
         try:
-            self._execute(execute_string)
+            self.cursor.execute('UPDATE %(table)s SET %(set)s WHERE %(where)s', execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
     
@@ -157,18 +165,22 @@ class Connection:
         row:Row
     ):
         table = row.table
-        execute_string = f'DELETE FROM `{table.table_name}` WHERE '
+        execute_data = {}
+
+        execute_data['table'] = table.table_name
 
         if table._has_primary_key():
-            execute_string += f'`{table.primary_key}`={row.values[table.primary_key]}'
+            execute_data['where'] = f'{table.primary_key}={row.values[table.primary_key]}'
 
         else:
             warnings.warn(f'Table {table.table_name} has no primary key')
+
+            execute_data['where'] = ''
             for column, v in row.values.items():
-                execute_string += f"`{column}` = '{v}' AND "
-            execute_string = execute_string.removesuffix(' AND ')
+                execute_data['where'] += f"{column} = '{v}' AND "
+            execute_data['where'] = execute_data['where'].removesuffix(' AND ')
 
         try:
-            self._execute(execute_string)
+            self.cursor.execute('DELETE FROM %(table)s WHERE %(where)s', execute_data)
         except mysql.connector.Error as e:
             warnings.warn(e)
