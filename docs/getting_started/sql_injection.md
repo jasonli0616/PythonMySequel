@@ -50,11 +50,12 @@ WHERE username='bob_jones123' AND password='incorrect_password' OR 1=1;';
 ### Preventing SQL Injection
 The demostration above uses SQL code, rather than PythonMySequel. This is to demonstrate exactly what SQL injection does.
 
-There is no SQL injection protection in PythonMySequel in order to prevent false positives.\
-If an app uses PythonMySequel with their own built-in SQL injection protection, PythonMySequel will not set off a false error (eg. by blocking `;`, or `--`, or `OR 1=1` completely).
+PythonMySequel has SQL injection protection built-in (since version 0.2.0). However, there are still ways you can prevent SQL injection.
 
-**Here are some ways you can prevent SQL injection in your code, by limiting special characters:** \
-TLDR: Restrict the use of the characters `;`, `--`, and `=`
+#### Ways you can prevent SQL injection in your code, by limiting special characters:
+This is not necessary due to the SQL injection protection built into PythonMySequel, but they are a good idea to implement when possible to prevent edge cases.
+
+**TLDR**: Restrict the use of the characters `;`, `--`, and `=`
 
 ##### 1. Semicolons `;`
 Semicolons end a statement in SQL.\

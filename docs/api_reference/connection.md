@@ -33,6 +33,9 @@ Drops/removes a table
 `insert(row:pythonmysequel.Row) -> None`\
 Inserts a record into a table
 
+`last_query -> str`\
+Returns the last query run, in SQL syntax
+
 `select(columns:list | str, table:pythonmysequel.Table, where:str=None) -> list[pythonmysequel.Row]`\
 Finds record(s) in a table
 
