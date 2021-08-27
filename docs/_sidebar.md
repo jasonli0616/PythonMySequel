@@ -23,3 +23,4 @@
     * [Bool Object](api_reference/values/bool.md)
 * [Contributing](CONTRIBUTING.md)
   * [Issue tracking](CONTRIBUTING.md#issue-tracking)
+  * [Changelog](../CHANGELOG.md)

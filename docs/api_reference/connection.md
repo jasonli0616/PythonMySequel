@@ -13,7 +13,7 @@ class pythonmysequel.Connection(user:str, password:str, host:str='127.0.0.1')
 
 ### Methods and attributes:
 `connection -> mysql.connector.MySQLConnection()`\
-Returns the MySQL connection
+Returns the [MySQL connection](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlconnection.html)
 
 `create_database(database:str) -> None`\
 Create a database
@@ -22,7 +22,7 @@ Create a database
 Creates a table
 
 `cursor -> mysql.connector.cursor.MySQLCursor()`\
-Returns the MySQL cursor
+Returns the [MySQL cursor](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor.html)
 
 `delete(row:pythonmysequel:Row) -> None`\
 Delete record(s) in a table
@@ -44,6 +44,3 @@ Update record(s) in a table
 
 `use_database(database:str) -> None`\
 Use an existing database
-
-`_execute(query:str, commit=True) -> None` (private method)\
-Executes a query

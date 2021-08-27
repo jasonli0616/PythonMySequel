@@ -1,10 +1,10 @@
 # Querying/Selecting Records
 
-The [`Connection.select`](api_reference/connection.md#methods-and-attributes) method will return **a list** of the [`Row`](api_reference/row.md) object.
+The [`Connection.select()`](api_reference/connection.md#methods-and-attributes) method will return **a list** of the [`Row`](api_reference/row.md) object.
 ```python
 all_users = db.select('*', users_table)
 query2 = db.select(['last_name', 'age'], users_table)
-query3 = db.select(['first_name', 'last_name'], users_table, where='age=25')
+query3 = db.select(['first_name', 'last_name'], users_table, age=25)
 ```
 SQL equivalent code:
 ```sql
@@ -103,7 +103,7 @@ SELECT `first_name`, `last_name` FROM `users_table` WHERE age=25;
 ```
 PythonMySequel code:
 ```python
-query = db.select(['first_name', 'last_name'], users_table, where='age=25')
+query = db.select(['first_name', 'last_name'], users_table, age=25)
 ```
 Returns `-> list[pythonmysequel.Row]`:
 ```

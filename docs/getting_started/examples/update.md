@@ -1,6 +1,6 @@
 # Updating Records
 
-To update a record, you must first [`select`](getting_started/examples/query.md) a row. Then, you pass in that row as an argument to the [`Connection.update`](api_reference/connection.md#methods-and-attributes) method.
+To update a record, you must first [select a row](getting_started/examples/query.md). Then, you pass in that row as an argument to the [`Connection.update()`](api_reference/connection.md#methods-and-attributes) method.
 
 Current table:
 
@@ -38,7 +38,7 @@ Updated table:
 | 2  | John       | Smith     | 43  |
 | 3  | Abi        | Roberts   | 32  |
 
-Though it is recommended to have a [primary key](https://dev.mysql.com/doc/refman/8.0/en/primary-key-optimization.html) column, it is not required in PythonMySequel.\
+Though it is recommended to have a [`PRIMARY KEY`](https://dev.mysql.com/doc/refman/8.0/en/primary-key-optimization.html) column, it is not required in PythonMySequel.\
 PythonMySequel will be able to update records without a primary key, but there is a chance of error.\
 (If there are two records that have the same data, both will be updated)
 

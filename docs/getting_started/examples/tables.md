@@ -23,7 +23,7 @@ users_table = pythonmysequel.Table('users_table', # table name
     age=Int() # INT
 )
 ```
-To add it to the database, call the [`Connection.create_table`](api_reference/connection.md#methods-and-attributes) method.\
+To add it to the database, call the [`Connection.create_table()`](api_reference/connection.md#methods-and-attributes) method.\
 You do not need to call this method if you are just adding a pre-existing database to PythonMySequel (creating an instance).
 ```python
 # create database method
