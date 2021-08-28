@@ -9,6 +9,7 @@
     * [Querying records](getting_started/examples/query.md)
     * [Updating records](getting_started/examples/update.md)
     * [Deleting records](getting_started/examples/delete.md)
+    * [Other](getting_started/examples/other.md)
   * [SQL Injection](getting_started/sql_injection.md)
     * [What is SQL Injection?](getting_started/sql_injection.md#what-is-sql-injection)
     * [Preventing SQL Injection](getting_started/sql_injection.md#preventing-sql-injection)
