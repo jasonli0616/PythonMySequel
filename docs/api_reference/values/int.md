@@ -9,7 +9,7 @@ class pythonmysequel.values.Int(**options)
 ### Parameters:
 - ****options: bool** - Data type options
   - `(NOT_NULL=True)`
-  - `(AUTO_INCREMENT=True)`
+  - `(AUTO_INCREMENT=True)` (not supported by [`SQLite_Connector`](api_reference/sqlite_connector.md))
   - `(PRIMARY_KEY=True)`
 
 ### Methods and attributes:

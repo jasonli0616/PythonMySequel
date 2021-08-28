@@ -17,13 +17,13 @@ Creating the instance will let PythonMySequel know that this table exists.
 # but you will not need to run the Connection.create_table method
 users_table = pythonmysequel.Table('users_table', # table name
     # columns:
-    id=Int(PRIMARY_KEY=True, AUTO_INCREMENT=True)
+    id=Int(PRIMARY_KEY=True)
     first_name=String(30, NOT_NULL=True), # VARCHAR(30) NOT NULL
     last_name=String(30), # VARCHAR(30)
     age=Int() # INT
 )
 ```
-To add it to the database, call the [`Connection.create_table`](api_reference/connection.md#methods-and-attributes) method.\
+To add it to the database, call the [`Connection.create_table()`](api_reference/connection.md#methods-and-attributes) method.\
 You do not need to call this method if you are just adding a pre-existing database to PythonMySequel (creating an instance).
 ```python
 # create database method

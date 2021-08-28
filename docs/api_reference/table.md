@@ -20,8 +20,5 @@ Returns the name of the table
 `values -> dict[str, pythonmysequel.values._ValueType]`\
 Returns the name of the table
 
-`_get_create_string() -> str` (protected method)\
-Returns the SQL query to create the table
-
 `_has_primary_key() -> bool` (protected method)\
 Returns true if table has primary key column, else return false
