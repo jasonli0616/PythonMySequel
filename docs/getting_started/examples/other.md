@@ -10,4 +10,4 @@ If you are looking for a Python library to run complex custom things, we recomme
 You are still, however, able to do these things using the [`Connection._execute()`](api_reference/connection.md#methods-and-attributes) method.\
 This method allows you to run your own SQL query. This method was designed to be a private method that is only used within library source code, however you are able to use it to run your own queries.
 
-You should be able to pass in your custom SQL query as a string to the method to run it. However, this PythonMySequel will not be able to prevent SQL injection. You can read [our tips](getting_started/sql_injection.md#preventing-sql-injection) on preventing SQL injection. You can also check out the [PythonMySequel native way](getting_started/sql_injection.md#native-way)
+You should be able to pass in your custom SQL query as a string to the method to run it. However, this PythonMySequel will not be able to prevent SQL injection. You can read [our tips](getting_started/sql_injection.md#preventing-sql-injection) on preventing SQL injection. You can also check out the [PythonMySequel native way](getting_started/sql_injection.md#native-way).

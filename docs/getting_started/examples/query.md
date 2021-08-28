@@ -9,7 +9,7 @@ query3 = db.select(['first_name', 'last_name'], users_table, age=25)
 SQL equivalent code:
 ```sql
 SELECT * FROM `users_table`;
-SELECT last_name, age FROM `users_table`;
+SELECT `last_name`, `age` FROM `users_table`;
 SELECT `first_name`, `last_name` FROM `users_table` WHERE age=25;
 ```
 
