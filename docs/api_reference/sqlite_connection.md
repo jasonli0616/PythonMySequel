@@ -1,19 +1,18 @@
-# Connection
+# SQLite_Connection
 
 ```python
-class pythonmysequel.Connection(user:str, password:str, host:str='127.0.0.1')
+class pythonmysequel.SQLite_Connection(database:str)
 ```
+Inherits [`pythonmysequel.Connection`](api_reference/connection.md) object
 
-**Source code**: [pythonmysequel/Connection.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/Connection.py)
+**Source code**: [pythonmysequel/SQLite_Connection.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/SQLite_Connection.py)
 
 ### Parameters:
-- **user: str** - MySQL server username
-- **password: str** - MySQL server password
-- **host: str** - MySQL server address
+- **database: str** - name of database file
 
 ### Methods and attributes:
-`connection -> mysql.connector.MySQLConnection`\
-Returns the [MySQL connection](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlconnection.html)
+`connection -> sqlite3.Connection`\
+Returns the [SQLite connection](https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection)
 
 `create_database(database:str) -> None`\
 Create a database
@@ -21,8 +20,8 @@ Create a database
 `create_table(table:pythonmysequel.Table) -> None`\
 Creates a table
 
-`cursor -> mysql.connector.cursor.MySQLCursor`\
-Returns the [MySQL cursor](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor.html)
+`cursor -> sqlite3.Cursor`\
+Returns the [SQLite cursor](https://docs.python.org/3/library/sqlite3.html#sqlite3.Cursor)
 
 `delete(row:pythonmysequel:Row) -> None`\
 Delete record(s) in a table
@@ -31,7 +30,7 @@ Delete record(s) in a table
 Drops/removes a table
 
 `insert(row:pythonmysequel.Row) -> None`\
-Inserts a record into a table
+Inserts a record into a table\
 
 `last_query -> str`\
 Returns the last query run, in SQL syntax

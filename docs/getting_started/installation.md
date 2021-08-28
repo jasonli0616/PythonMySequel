@@ -15,5 +15,7 @@ $ pip install PythonMySequel
 [PythonMySequel on PyPI](https://pypi.org/project/PythonMySequel/)
 
 ## Requirements:
-- [MySQL](https://dev.mysql.com/downloads/mysql/) - This is the MySQL server.
 - [Python 3.6+](https://www.python.org/downloads/) - PythonMySequel only supports Python 3.6 or higher.
+- SQL (at least one)
+  - [MySQL](https://dev.mysql.com/downloads/mysql/) - This is the MySQL server.
+  - [SQLite](https://www.sqlite.org/download.html) - This is SQLite.

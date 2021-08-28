@@ -7,7 +7,7 @@ PyPI: [View on PyPI](https://pypi.org/project/PythonMySequel/)
 [Overview](getting_started/overview.md) | [Installation guide](getting_started/installation.md) | [Examples](getting_started/examples.md) | [SQL Injection](getting_started/sql_injection.md)
 
 ### API Reference:
-[Connection Object](api_reference/connection.md) | [Table Object](api_reference/table.md) | [Row Object](api_reference/row.md) | [Value Objects](api_reference/values.md)
+[Connection Object](api_reference/connection.md) | [SQLite_Connection Object](api_reference/sqlite_connection.md) | [Table Object](api_reference/table.md) | [Row Object](api_reference/row.md) | [Value Objects](api_reference/values.md)
 
 ### Contributing:
 [Contributing](CONTRIBUTING.md) | [Issue tracking](CONTRIBUTING.md#issue-tracking) | [Changelog](../CHANGELOG.md)
