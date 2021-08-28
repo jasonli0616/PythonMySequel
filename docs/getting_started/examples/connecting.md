@@ -3,7 +3,7 @@
 To use PythonMySequel, you must have either a [MySQL server or SQLite database](getting_started/installation.md) to connect to.
 
 #### MySQL
-PythonMySequel uses a [`Connection`](api_reference/connection.md) object to manage the database.\
+PythonMySequel uses a [`Connection`](api_reference/connection.md#connection) object to manage the database.\
 You can connect to the server when initializing the instance.
 ```python
 import pythonmysequel
@@ -16,7 +16,7 @@ db = pythonmysequel.Connection(
 ```
 
 #### SQLite
-PythonMySequel uses a [`SQLite_Connection`](api_reference/sqlite_connection.md) object to manage the database.\
+PythonMySequel uses a [`SQLite_Connection`](api_reference/connection.md#sqlite_connection) object to manage the database.\
 You can connect to the database when initializing the instance.
 ```python
 import pythonmysequel

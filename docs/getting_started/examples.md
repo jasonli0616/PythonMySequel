@@ -5,6 +5,6 @@
 ---
 
 #### Note:
-In most of this getting started guide, we will be using and referring to the [`Connection`](api_reference/connection.md) object, which works for MySQL.\
-SQLite databases require the [`SQLite_Connection`](api_reference/sqlite_connection.md) object instead.\
+In most of this getting started guide, we will be using and referring to the [`Connection`](api_reference/connection.md#connection) object, which works for MySQL.\
+SQLite databases require the [`Connection`](api_reference/connection.md#sqlite_connection) object instead.\
 Most of the syntax is the same, and we will explicitly specify when it is different.
