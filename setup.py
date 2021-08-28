@@ -5,9 +5,9 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setuptools.setup(
     name="PythonMySequel",
-    version="0.1.0",
+    version="0.2.0",
     author="Jason Li",
-    description="An easier to use MySQL connector for Python.",
+    description="An easier to use MySQL/SQLite connector for Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
