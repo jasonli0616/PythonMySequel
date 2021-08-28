@@ -3,7 +3,7 @@ All notable changes will be documented in this file.
 
 ---
 
-## v0.2.0 - In development
+## v0.2.0 - 28/08/2021
 ### Added
 - SQL injection protection
 - Ability to see last query run in SQL syntax

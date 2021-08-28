@@ -10,4 +10,4 @@ PyPI: [View on PyPI](https://pypi.org/project/PythonMySequel/)
 [Connections](api_reference/connection.md) | [Table Object](api_reference/table.md) | [Row Object](api_reference/row.md) | [Value Objects](api_reference/values.md)
 
 ### Contributing:
-[Contributing](CONTRIBUTING.md) | [Issue tracking](CONTRIBUTING.md#issue-tracking) | [Changelog](../CHANGELOG.md)
+[Contributing](CONTRIBUTING.md) | [Issue tracking](CONTRIBUTING.md#issue-tracking) | [Changelog](CHANGELOG.md)
