@@ -19,15 +19,15 @@ VALUES ('Bob', 'Jones');
 ```
 However, someone could also input SQL code, causing harm to the database.\
 `{input_first_name}` = Bob\
-`{input_last_name}` = Jones'); DROP TABLE \`users`;
+`{input_last_name}` = Jones'); DROP TABLE \`users`;--
 ```sql
 INSERT INTO `users` (`first_name`, `last_name`)
-VALUES ('Bob', 'Jones'); DROP TABLE `users`;');
+VALUES ('Bob', 'Jones'); DROP TABLE `users`;--');
 ```
 As you can see, the user inputted a query to drop the entire users table.\
-The reason that this works is because when the code is run, the `');` that the user inputted ends the `INSERT` statement and starts a new `DROP` statement.
+The reason that this works is because when the code is run, the `');` that the user inputted ends the `INSERT` statement and starts a new `DROP` statement. There is also a `--` at the end, which are comments in SQL. This just blocks out the rest of the line of code.
 
-Other examples of SQL injection include using `OR 1=1` (always returns true), using `--` (comments) to block a line of code, and more.
+Other examples of SQL injection include using `OR 1=1` (always returns true), and more.
 
 You can see how this is dangerous, because an attacker can gain access to an account, for example, using SQL injection.\
 Querying a database with the user inputted username and password:
@@ -39,10 +39,10 @@ Using `OR 1=1`, the attacker is able to gain access to an account without the pa
 This works because even if the password is incorrect, `1=1` is always true.
 
 `{input_username}` = bob_jones\
-`{input_password}` = incorrect_password' OR 1=1;
+`{input_password}` = incorrect_password' OR 1=1;--
 ```sql
 SELECT * FROM `accounts`
-WHERE username='bob_jones123' AND password='incorrect_password' OR 1=1;';
+WHERE username='bob_jones123' AND password='incorrect_password' OR 1=1;--';
 ```
 
 ---
@@ -52,7 +52,12 @@ The demostration above uses SQL code, rather than PythonMySequel. This is to dem
 
 PythonMySequel has SQL injection protection built-in (since version 0.2.0). However, there are still ways you can prevent SQL injection.
 
-#### Ways you can prevent SQL injection in your code, by limiting special characters:
+
+#### Native way:
+If you are running your own queries as demonstrated [here](getting_started/examples/other.md), you may want to use the Python native way to prevent SQL injection.\
+Check out [this article for MySQL](https://realpython.com/prevent-python-sql-injection/#using-query-parameters-in-sql) or [this article for SQLite](https://stackoverflow.com/questions/13613037/is-this-python-code-vulnerable-to-sql-injection-sqlite3). You can pass in these arguments as a list to the second parameter in the [`Connection._execute()`](api_reference/connection.md#methods-and-attributes) method.
+
+#### More ways you can prevent SQL injection in your code, by limiting special characters:
 This is not necessary due to the SQL injection protection built into PythonMySequel, but they are a good idea to implement when possible to prevent edge cases.
 
 **TLDR**: Restrict the use of the characters `;`, `--`, and `=`
