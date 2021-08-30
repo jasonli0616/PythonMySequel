@@ -9,6 +9,7 @@ All notable changes will be documented in this file.
 - Ability to see last query run in SQL syntax
 - Backticks (`` ` ``) when table name used to prevent user error
 - Support for [SQLite](https://docs.python.org/3/library/sqlite3.html)
+- **v0.2.1-0.2.2** - fix bugs in `setup.py` & `pip install`
 
 ### Changed
 - Most [`Connection` method](https://jasonli0616.github.io/PythonMySequel/#/api_reference/connection?id=methods-and-attributes) code, to support SQL injection protection
