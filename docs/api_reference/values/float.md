@@ -4,7 +4,7 @@
 class pythonmysequel.values.Float(**options)
 ```
 
-**Source code**: [pythonmysequel/values/Float.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/values/Float.py)
+**Source code**: [pythonmysequel/values/Float.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/values/Float.py)
 
 ### Parameters:
 - ****options: bool** - Data type options

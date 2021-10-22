@@ -4,7 +4,7 @@
 class pythonmysequel.values.Bool(**options)
 ```
 
-**Source code**: [pythonmysequel/values/Bool.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/values/Bool.py)
+**Source code**: [pythonmysequel/values/Bool.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/values/Bool.py)
 
 ### Parameters:
 - ****options: bool** - Data type options

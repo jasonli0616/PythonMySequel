@@ -4,7 +4,7 @@
 class pythonmysequel.Row(table:pythonmysequel.Table, **values)
 ```
 
-**Source code**: [pythonmysequel/Row.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/Row.py)
+**Source code**: [pythonmysequel/Row.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/Row.py)
 
 ### Parameters:
 - **table: pythonmysequel.Table** - The table that this row/record is in

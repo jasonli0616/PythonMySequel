@@ -4,7 +4,7 @@
 class pythonmysequel.Table(table_name:str, **values:pythonmysequel.values._ValueType)
 ```
 
-**Source code**: [pythonmysequel/Table.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/Table.py)
+**Source code**: [pythonmysequel/Table.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/Table.py)
 
 ### Parameters:
 - **table_name: str** - Name of the table

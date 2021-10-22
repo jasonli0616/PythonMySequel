@@ -4,7 +4,7 @@
 class pythonmysequel.values.String(column_limit:int=255, **options)
 ```
 
-**Source code**: [pythonmysequel/values/String.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/values/String.py)
+**Source code**: [pythonmysequel/values/String.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/values/String.py)
 
 ### Parameters:
 - **column_limit: int** - `VARCHAR` column limit

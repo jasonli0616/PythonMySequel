@@ -4,7 +4,7 @@
 class pythonmysequel.Connection(user:str, password:str, host:str='127.0.0.1')
 ```
 
-**Source code**: [pythonmysequel/Connection.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/Connection.py)
+**Source code**: [pythonmysequel/Connection.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/Connection.py)
 
 ### Parameters:
 - **user: str** - MySQL server username
@@ -57,7 +57,7 @@ class pythonmysequel.SQLite_Connection(database:str)
 ```
 Inherits [`pythonmysequel.Connection`](api_reference/connection.md#connection) object
 
-**Source code**: [pythonmysequel/SQLite_Connection.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/SQLite_Connection.py)
+**Source code**: [pythonmysequel/SQLite_Connection.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/SQLite_Connection.py)
 
 ### Parameters:
 - **database: str** - name of database file

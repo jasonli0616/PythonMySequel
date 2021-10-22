@@ -4,7 +4,7 @@
 class pythonmysequel.values.Int(**options)
 ```
 
-**Source code**: [pythonmysequel/values/Int.py](https://github.com/jasonli0616/PythonMySequel/blob/main/pythonmysequel/values/Int.py)
+**Source code**: [pythonmysequel/values/Int.py](https://github.com/jasonli0616/PythonMySequel/blob/main/src/pythonmysequel/values/Int.py)
 
 ### Parameters:
 - ****options: bool** - Data type options
